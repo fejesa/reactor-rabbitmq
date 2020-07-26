@@ -1,0 +1,12 @@
+spring:
+    rabbitmq:
+        host: localhost
+        port: 5672
+        username: guest
+        password: guest
+
+destinations:
+    queues:
+        test:
+            exchange: reactormq
+            routing-key: reactor
