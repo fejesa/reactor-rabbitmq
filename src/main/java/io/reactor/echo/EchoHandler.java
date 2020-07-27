@@ -25,7 +25,6 @@ import static org.springframework.web.reactive.function.server.ServerResponse.*;
 @Component
 public class EchoHandler {
 
-    private EmitterProcessor<EchoMessage> emitterProcessor;
     private Flux<EchoMessage> messages;
     private FluxSink<EchoMessage> sink;
 
@@ -39,7 +38,7 @@ public class EchoHandler {
 
     @PostConstruct
     private void init() {
-        this.emitterProcessor = EmitterProcessor.create();
+        EmitterProcessor<EchoMessage> emitterProcessor = EmitterProcessor.create();
         this.messages = emitterProcessor.share();
         this.sink = emitterProcessor.sink();
     }
