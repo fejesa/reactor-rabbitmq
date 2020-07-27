@@ -26,10 +26,27 @@ public class EchoMessage {
         return id;
     }
 
+    @Override
+    public String toString() {
+        try {
+            return new ObjectMapper().writeValueAsString(this);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     @JsonIgnore
     public byte[] getPayload() {
         try {
             return new ObjectMapper().writeValueAsBytes(this);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static EchoMessage of(String s) {
+        try {
+            return new ObjectMapper().readValue(s, EchoMessage.class);
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }

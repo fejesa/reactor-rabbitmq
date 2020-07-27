@@ -1,7 +1,5 @@
 package io.reactor.echo;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import io.reactor.echo.config.RabbitMQConfiguration;
 import io.reactor.echo.domain.EchoMessage;
 import org.slf4j.Logger;
@@ -12,6 +10,9 @@ import reactor.core.publisher.Mono;
 import reactor.rabbitmq.OutboundMessage;
 import reactor.rabbitmq.Sender;
 
+/**
+ * Listens to the AMQP queue and sends it back - echo - using another queue.
+ */
 @Component
 public class EchoReceiver {
 
@@ -26,13 +27,10 @@ public class EchoReceiver {
     @RabbitListener(queues = RabbitMQConfiguration.INCOMING_QUEUE)
     public void handleMessage(String message) {
         log.info("Received echo message: {}", message);
-        try {
-            EchoMessage echoMessage = new ObjectMapper().readValue(message, EchoMessage.class);
-            sendEcho(echoMessage).subscribe();
-            log.info("Sent back echo id: {}", echoMessage.getId());
-        } catch (JsonProcessingException e) {
-            log.error("Message parse error", e);
-        }
+
+        EchoMessage echoMessage = EchoMessage.of(message);
+        log.info("Sent back echo: {}", echoMessage);
+        sendEcho(echoMessage).subscribe();
     }
 
     private Mono<Void> sendEcho(EchoMessage message) {

@@ -15,6 +15,9 @@ import reactor.rabbitmq.Sender;
 
 import java.util.UUID;
 
+/**
+ * Puts the incoming message to an AMQP queue and returns a request id to the client.
+ */
 @Component
 public class EchoSender {
 
@@ -31,7 +34,7 @@ public class EchoSender {
                 .bodyToMono(Echo.class)
                 .map(Echo::getMessage)
                 .flatMap(this::send)
-                .flatMap(id -> ServerResponse.ok().bodyValue(id))
+                .flatMap(ServerResponse.ok()::bodyValue)
                 .switchIfEmpty(ServerResponse.badRequest().build());
     }
 
