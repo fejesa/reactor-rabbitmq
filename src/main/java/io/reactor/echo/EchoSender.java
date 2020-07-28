@@ -61,6 +61,6 @@ public class EchoSender {
     }
 
     private OutboundMessage createOutboundMessage(String message, String id) {
-        return new OutboundMessage("", RabbitMQConfiguration.INCOMING_QUEUE, new EchoMessage(id, message).getPayload());
+        return new OutboundMessage("", RabbitMQConfiguration.REQUEST_QUEUE, new EchoMessage(id, message).getPayload());
     }
 }

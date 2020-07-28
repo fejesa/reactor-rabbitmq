@@ -43,7 +43,7 @@ public class EchoHandler {
         this.sink = emitterProcessor.sink();
     }
 
-    @RabbitListener(queues = RabbitMQConfiguration.OUTGOING_QUEUE)
+    @RabbitListener(queues = RabbitMQConfiguration.RESPONSE_QUEUE)
     private void handleMessage(String message) {
         log.info("Coming back echo message: {}", message);
         sink.next(EchoMessage.of(message));

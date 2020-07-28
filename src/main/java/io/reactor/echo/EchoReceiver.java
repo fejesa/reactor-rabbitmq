@@ -24,7 +24,7 @@ public class EchoReceiver {
         this.sender = sender;
     }
 
-    @RabbitListener(queues = RabbitMQConfiguration.INCOMING_QUEUE)
+    @RabbitListener(queues = RabbitMQConfiguration.REQUEST_QUEUE)
     public void handleMessage(String message) {
         log.info("Received echo message: {}", message);
 
@@ -41,6 +41,6 @@ public class EchoReceiver {
     }
 
     private OutboundMessage createOutboundMessage(EchoMessage message) {
-        return new OutboundMessage("", RabbitMQConfiguration.OUTGOING_QUEUE, message.getPayload());
+        return new OutboundMessage("", RabbitMQConfiguration.RESPONSE_QUEUE, message.getPayload());
     }
 }

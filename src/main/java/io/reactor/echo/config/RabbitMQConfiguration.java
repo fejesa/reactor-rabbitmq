@@ -17,9 +17,9 @@ import javax.annotation.PreDestroy;
 @Configuration
 public class RabbitMQConfiguration {
 
-    public static final String INCOMING_QUEUE = "echo-incoming";
+    public static final String REQUEST_QUEUE = "echo-request";
 
-    public static final String OUTGOING_QUEUE = "echo-outgoing";
+    public static final String RESPONSE_QUEUE = "echo-response";
 
     @Autowired
     private Mono<Connection> connectionMono;
@@ -52,8 +52,8 @@ public class RabbitMQConfiguration {
 
     @PostConstruct
     public void init() {
-        amqpAdmin.declareQueue(new Queue(INCOMING_QUEUE, false, false, true));
-        amqpAdmin.declareQueue(new Queue(OUTGOING_QUEUE, false, false, true));
+        amqpAdmin.declareQueue(new Queue(REQUEST_QUEUE, false, false, true));
+        amqpAdmin.declareQueue(new Queue(RESPONSE_QUEUE, false, false, true));
     }
 
     @PreDestroy
