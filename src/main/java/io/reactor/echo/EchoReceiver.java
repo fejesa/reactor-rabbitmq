@@ -28,13 +28,13 @@ public class EchoReceiver {
     public void handleMessage(String message) {
         log.info("Received echo message: {}", message);
 
-        EchoMessage echoMessage = EchoMessage.of(message);
+        var echoMessage = EchoMessage.of(message);
         log.info("Sent back echo: {}", echoMessage);
         sendEcho(echoMessage).subscribe();
     }
 
     private Mono<Void> sendEcho(EchoMessage message) {
-        Mono<OutboundMessage> outboundMessage = Mono.fromSupplier(() -> createOutboundMessage(message));
+        var outboundMessage = Mono.fromSupplier(() -> createOutboundMessage(message));
         return sender
                 .send(outboundMessage)
                 .doOnError(e -> log.error("Delivery error", e));

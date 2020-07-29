@@ -42,7 +42,7 @@ public class RabbitMQConfiguration {
 
     @Bean
     public Mono<Connection> connectionMono(RabbitProperties rabbitProperties) {
-        ConnectionFactory connectionFactory = new ConnectionFactory();
+        var connectionFactory = new ConnectionFactory();
         connectionFactory.setHost(rabbitProperties.getHost());
         connectionFactory.setPort(rabbitProperties.getPort());
         connectionFactory.setUsername(rabbitProperties.getUsername());

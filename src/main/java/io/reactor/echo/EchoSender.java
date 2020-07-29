@@ -41,7 +41,7 @@ public class EchoSender {
     private Mono<EchoId> send(String message) {
         log.info("Client sent echo message: {}", message);
 
-        String echoId = createEchoId();
+        var echoId = createEchoId();
         log.info("Delivers echo with id: {}", echoId);
 
         send(message, echoId).subscribe();
@@ -50,7 +50,7 @@ public class EchoSender {
     }
 
     private Mono<Void> send(String message, String id) {
-        Mono<OutboundMessage> outboundMessage = Mono.fromSupplier(() -> createOutboundMessage(message, id));
+        var outboundMessage = Mono.fromSupplier(() -> createOutboundMessage(message, id));
         return sender
                 .send(outboundMessage)
                 .doOnError(e -> log.error("Echo dispatch error", e));
