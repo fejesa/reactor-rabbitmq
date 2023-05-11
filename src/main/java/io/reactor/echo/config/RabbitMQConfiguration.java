@@ -13,6 +13,8 @@ import reactor.rabbitmq.*;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import java.io.IOException;
+import java.util.Objects;
 
 @Configuration
 public class RabbitMQConfiguration {
@@ -57,7 +59,7 @@ public class RabbitMQConfiguration {
     }
 
     @PreDestroy
-    public void close() throws Exception {
-        connectionMono.block().close();
+    public void close() throws IOException {
+        Objects.requireNonNull(connectionMono.block()).close();
     }
 }

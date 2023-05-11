@@ -19,7 +19,7 @@ curl -N http://localhost:8080/echo-stream
 
 ## Requirements
 * Java 11+
-* RabbitMQ 3.8.5 (you can use the Docker container for convenience)
+* RabbitMQ 3.8.5 or above (you can use the Docker container for convenience)
 * Maven
 
 ## How to build
