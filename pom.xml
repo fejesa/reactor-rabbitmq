@@ -34,7 +34,7 @@
         <reactor.rabbitmq.version>1.4.3.RELEASE</reactor.rabbitmq.version>
         <jackson.version>2.15.0</jackson.version>
         <slf4j.version>1.7.30</slf4j.version>
-        <logback.version>1.2.3</logback.version>
+        <logback.version>1.3.12</logback.version>
     </properties>
 
     <dependencies>
